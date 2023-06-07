@@ -5,3 +5,5 @@ const getResponse = async (req, res) => {
     console.error("Error getting response:", error);
   }
 };
+
+module.exports = { getResponse };

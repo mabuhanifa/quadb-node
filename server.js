@@ -9,7 +9,7 @@ const port = 3001;
 
 const cryptoRouter = require("./routes/cryptoRoute.js");
 
-
+app.use("/api", cryptoRouter);
 
 const fetchUser = async () => {
   const res = await axios.get("https://api.wazirx.com/api/v2/tickers");

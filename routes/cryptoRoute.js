@@ -1,5 +1,7 @@
+const { getResponse } = require('../controller/cryptoController');
+
 const router = require('express').Router();
 
-router.get('/', )
+router.get('/', getResponse);
 
 module.exports = router;
