@@ -5,7 +5,7 @@ app.use(cors());
 app.use(express.json());
 // const pool = require("./db.js");
 const axios = require("axios");
-const port = process.env.PORT || 3001;
+const port = 3000;
 
 const fetchUser = async () => {
   const res = await axios.get("https://api.wazirx.com/api/v2/tickers");
@@ -22,13 +22,14 @@ app.get("/api", async (req, res) => {
       info: data[property],
     });
   }
-  const final = arr.slice(0, 10);
-  console.log(final);
+  const final = arr.sort(
+    (a, b) => Number(b.info.sell) - Number(a.info.sell)
+  ).slice(0, 10);
+
   if (final.length > 0) {
     res.send(final);
-  } 
-  else{
-    res.send(`final`);
+  } else {
+    res.send(`No data found`);
   }
 });
 
