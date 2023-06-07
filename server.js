@@ -5,7 +5,7 @@ app.use(cors());
 app.use(express.json());
 const pool = require("./db.js");
 const axios = require("axios");
-const port = 3001;
+const port = process.env.PORT || 3001;
 
 const cryptoRouter = require("./routes/cryptoRoute.js");
 
@@ -15,39 +15,6 @@ const fetchUser = async () => {
   const res = await axios.get("https://api.wazirx.com/api/v2/tickers");
   return await res.data;
 };
-
-// async function createTable() {
-//   const query = `
-//     CREATE TABLE crypto (
-//       id SERIAL PRIMARY KEY,
-//       data JSONB
-//     );
-//   `;
-
-//   try {
-//     await pool.query(query);
-//     console.log('Table created successfully');
-//   } catch (error) {
-//     console.error('Error creating table:', error);
-//   } finally {
-//     pool.end();
-//     console.log('Disconnected from the database');
-//   }
-// }
-
-// createTable();
-
-
-
-app.get("/crypto", async (req, res) => {
-  const query = "SELECT * FROM crypto where id = 2";
-  try {
-    const result = await pool.query(query);
-    res.send(result.rows[0].data);
-  } catch (error) {
-    console.error("Error reading data:", error);
-  }
-});
 
 app.post("/api", async (req, res) => {
   const data = await fetchUser();
@@ -84,3 +51,24 @@ app.post("/api", async (req, res) => {
 app.listen(port, () => {
   console.log(`App listening to port ${port} `);
 });
+
+// async function createTable() {
+//   const query = `
+//     CREATE TABLE crypto (
+//       id SERIAL PRIMARY KEY,
+//       data JSONB
+//     );
+//   `;
+
+//   try {
+//     await pool.query(query);
+//     console.log('Table created successfully');
+//   } catch (error) {
+//     console.error('Error creating table:', error);
+//   } finally {
+//     pool.end();
+//     console.log('Disconnected from the database');
+//   }
+// }
+
+// createTable();
